@@ -1,0 +1,10 @@
+# .dockerignore
+__pycache__
+*.pyc
+*.pyo
+.env
+.git
+.gitignore
+*.md
+.vscode
+.idea
