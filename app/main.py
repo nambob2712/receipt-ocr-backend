@@ -1,3 +1,4 @@
+import logging
 from contextlib import asynccontextmanager
 from datetime import date, datetime
 from decimal import Decimal
@@ -25,6 +26,7 @@ from app.services.ocr import OCRService
 from app.services.storage import upload_image
 import google.generativeai as genai
 
+logger = logging.getLogger(__name__)
 settings = get_settings()
 
 
@@ -32,7 +34,9 @@ settings = get_settings()
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    await create_tables()
+    logger.info("Starting up — attempting to create DB tables...")
+    await create_tables()          # non-fatal: already wrapped in try/except
+    logger.info("Startup complete.")
     yield
 
 
